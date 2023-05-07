@@ -1,0 +1,45 @@
+task:
+  # task name
+  task_name: conll
+  # bert pre-trained model directory
+  bert_model_dir: bert-pretrained/multi_cased_L-12_H-768_A-12
+  # freeze some parameters
+  frozen_level: 2
+  # The output directory where the model predictions and checkpoints will be written
+  output_dir: /home/data_ti5_d/put/clner/en
+  # Specify the ckeckpoint to load
+  checkpoint: 
+  # Whether you are using an uncased model or not
+  lower_case: false
+  # The maximum total input sequence length after WordPiece tokenization
+  max_seq_length: 128
+train:
+  # Whether do training in this run
+  do: true
+  # train data
+  data_file: ner_data/conll-2003/en/train.txt
+  # Total batch size for training
+  batch_size: 32
+  # Total number of training epochs to perform
+  epochs: 4
+  # The initial learning rate for norm lr scheduler
+  learning_rate: !!float 3e-5
+  # weight decay
+  weight_decay: 0.01
+  # warmup proportion
+  warmup_proportion: 0.1
+  # Dropout rate
+  dropout_rate: 0.1
+  # Random seed for initialization
+  seed: 10
+eval:
+  data_file: ner_data/conll-2003/en/dev.txt
+  begin: 0
+  interval: 100
+  batch_size: 512
+  max_save: 3
+predict:
+  do: true
+  data_file: ner_data/conll-2003/en/test.txt
+  batch_size: 512
+use_cuda: true
